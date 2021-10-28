@@ -36,7 +36,17 @@ img {
 </head>
 <body>
 <div class="wrapper">
-	<h1>Hello from template!</h1>
+	<h1>Flask Notes</h1>
+
+	<main>
+	{% for note in notes | reverse %}
+		<article class="note">
+			<h2>{{ note["title"] }}</h2>
+			<p class="date-modified">{{ note["date-modified"] }}</p>
+			<p class="note-body">{{ note["body"].replace("\n", "<br>") | safe }}</p>
+		</article>
+	{% endfor %}
+	</main>
 </div>
 </body>
 </html>
