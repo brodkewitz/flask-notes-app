@@ -9,43 +9,30 @@
 	<title>Flask Notes App</title>
 	{% endif %}
 
-<style>
-* {
-	box-sizing: border-box;
-}
-
-html, body {
-	margin: initial;
-	padding: initial;
-	font-family: system-ui, -apple-system, sans-serif;
-}
-
-img {
-	display: block;
-	max-width: 100%;
-	height: auto;
-}
-
-.wrapper {
-	max-width: 70rem;
-	margin: 0 auto;
-	padding: 1rem;
-}
-</style>
-
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 <div class="wrapper">
-	<h1>Flask Notes</h1>
+	<header class="site-header">
+		<h1>Flask Notes</h1>
+		<a class="action new-note" href="">New Note</a>
+	</header>
 
 	<main>
 	{% for note in notes | reverse %}
 		<article class="note">
-			<h2>{{ note["title"] }}</h2>
-			<p class="date-modified">{{ note["date-modified"] }}</p>
+			<div class="note-header">
+				<div class="note-meta">
+					<h2>{{ note["title"] }}</h2>
+					<p class="date-modified">{{ note["date-modified"] }}</p>
+				</div>
+				<a class="action edit-note" href="">Edit</a>
+				<a class="action delete-note" href="">Delete</a>
+			</div>
+
 			<p class="note-body">{{ note["body"].replace("\n", "<br>") | safe }}</p>
 		</article>
-	{% endfor %}
+	{% endfor -%}
 	</main>
 </div>
 </body>
