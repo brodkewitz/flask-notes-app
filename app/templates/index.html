@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block header_action %}<a class="action new-note" href="">New Note</a>{% endblock %}
+{% block header_action %}<a class="action new-note" href="{{ url_for('edit_note') }}">New Note</a>{% endblock %}
 {% block content %}
 	{%- for note in notes | reverse %}
 		<article class="note">

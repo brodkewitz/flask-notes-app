@@ -27,6 +27,14 @@ notes = [
 
 
 @app.route("/")
-def hello_world():
+def index():
     title = "Home"
     return render_template("index.html", title=title, notes=notes)
+
+
+@app.route("/edit")
+def edit_note():
+    """Create a new note or edit an existing one"""
+    title = "New Note"
+
+    return render_template("edit.html")

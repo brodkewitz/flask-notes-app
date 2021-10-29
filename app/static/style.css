@@ -126,3 +126,12 @@ main {}
 	padding: 1rem;
 	margin: 0;
 }
+
+
+/* ********************* */
+/* Create/Edit Note Page */
+
+.action.cancel {
+	background-color: var(--ui-action-neutral-bg);
+	color: var(--ui-action-neutral-fg);
+}
