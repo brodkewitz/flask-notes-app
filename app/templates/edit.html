@@ -9,7 +9,6 @@
 				id="note-title"
 				required
 				maxlength="80"
-				autofocus
 			>
 
 			<label for="note-body">Note:</label>
@@ -25,5 +24,17 @@
 				class="action submit"
 				type="submit"
 			>Submit</button>
+	</form>
+
+	<form action="" method="post" novalidate>
+		{{ form.hidden_tag() }}
+
+		{{ form.note_title.label }}
+		{{ form.note_title(autofocus="", maxlength="80") }}
+
+		{{ form.note_body.label }}
+		{{ form.note_body(spellcheck="true", maxlength="4000") }}
+
+		{{ form.submit(class="action submit") }}
 	</form>
 {% endblock %}

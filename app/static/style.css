@@ -38,7 +38,8 @@ img {
 	padding: 0 2rem;
 }
 
-button {
+button,
+input[type="submit"] {
 	display: block;
 	margin: 0.25rem;
 	padding: 0.5rem;
@@ -48,7 +49,9 @@ button {
 
 /* Actions may be links or buttons. This is an non-comprehensive reset
    for both. */
-a.action, button.action {
+a.action,
+button.action,
+input[type="submit"].action {
 	border-radius: 0.25rem;
 	border: 1px solid currentColor;
 	display: block;
@@ -155,7 +158,7 @@ label {
 	font-size: 1.25rem;
 }
 
-input {
+input[type="text"] {
 	padding: 0.25em;
 	width: 32em;
 	margin-bottom: 2rem;
@@ -172,3 +175,5 @@ textarea {
 	/* Restrict input resizing to height only */
 	resize: vertical;
 }
+
+input[type="submit"] {}

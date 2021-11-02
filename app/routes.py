@@ -1,5 +1,6 @@
 from flask import render_template
 from app import app
+from app.forms import EditNoteForm
 
 
 notes = [
@@ -36,5 +37,6 @@ def index():
 def edit_note():
     """Create a new note or edit an existing one"""
     title = "New Note"
+    form = EditNoteForm()
 
-    return render_template("edit.html")
+    return render_template("edit.html", title=title, form=form)
