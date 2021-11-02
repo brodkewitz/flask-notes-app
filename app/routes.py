@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, flash, redirect, url_for
 from app import app
 from app.forms import EditNoteForm
 
@@ -33,10 +33,15 @@ def index():
     return render_template("index.html", title=title, notes=notes)
 
 
-@app.route("/edit")
+@app.route("/edit", methods=["GET", "POST"])
 def edit_note():
     """Create a new note or edit an existing one"""
     title = "New Note"
     form = EditNoteForm()
+    # validate_on_submit() only tries to validate on POST, so we don't
+    # have to check which method was used for the request.
+    if form.validate_on_submit():
+        flash("Form validates")
+        return redirect(url_for('index'))
 
     return render_template("edit.html", title=title, form=form)
