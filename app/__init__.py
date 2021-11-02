@@ -1,4 +1,5 @@
 from flask import Flask
+from config import Config
 
 
 # There are two kinds of "app" here, which is confusing.
@@ -7,6 +8,7 @@ from flask import Flask
 # by all of our other modules in the application. This "app" is part of
 # the package.
 app = Flask(__name__)
+app.config.from_object(Config)
 
 # "from app" here refers to the whole package, as named by this file's
 # parent directory. Putting our "import" statements down here is a
