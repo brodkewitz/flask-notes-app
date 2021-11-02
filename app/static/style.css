@@ -66,6 +66,14 @@ input[type="submit"].action {
 }
 
 
+.flash-message {
+	background-color: var(--ui-action-neutral-bg);
+	color: var(--ui-action-neutral-fg);
+	padding: 0.5rem;
+	font-style: italic;
+	border: 1px solid var(--ui-border-color);
+}
+
 
 /* ********************* */
 /* Header */
