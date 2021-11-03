@@ -41,7 +41,13 @@ def edit_note():
     # validate_on_submit() only tries to validate on POST, so we don't
     # have to check which method was used for the request.
     if form.validate_on_submit():
-        flash("Form validates")
+        new_note = {
+            "date-modified": "date handling coming soon",
+            "title": form.note_title.data,
+            "body": form.note_body.data
+        }
+        notes.append(new_note)
+        flash(f"New note created: {new_note['title']}")
         return redirect(url_for('index'))
 
     return render_template("edit.html", title=title, form=form)
