@@ -155,6 +155,11 @@ main {}
 	color: var(--ui-action-new-fg);
 }
 
+/* Container for label + input + errors */
+.form-field {
+	margin-top: 2rem;
+}
+
 label, input, textarea {
 	display: block;
 	font-family: inherit;
@@ -169,7 +174,6 @@ label {
 input[type="text"] {
 	padding: 0.25em;
 	width: 32em;
-	margin-bottom: 2rem;
 	accent-color: var(--note-accent-color);
 }
 
@@ -177,11 +181,15 @@ textarea {
 	padding: 0.25em;
 	width: 32em;
 	height: 18em;
-	margin-bottom: 2rem;
 	accent-color: var(--note-accent-color);
 	overflow: auto;
 	/* Restrict input resizing to height only */
 	resize: vertical;
+}
+
+.input-error {
+	margin-top: 0.5rem;
+	color: var(--ui-action-warning-fg);
 }
 
 input[type="submit"] {}

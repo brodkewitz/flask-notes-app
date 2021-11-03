@@ -4,12 +4,24 @@
 	<form action="" method="post" novalidate>
 		{{ form.hidden_tag() }}
 
-		{{ form.note_title.label }}
-		{{ form.note_title(autofocus="", maxlength="80") }}
+		<div class="form-field">
+			{{ form.note_title.label }}
+			{{ form.note_title(autofocus="", maxlength="80") }}
+			{% for error in form.note_title.errors %}
+			<p class="input-error">{{ error }}</p>
+			{% endfor -%}
+		</div>
 
-		{{ form.note_body.label }}
-		{{ form.note_body(spellcheck="true", maxlength="4000") }}
+		<div class="form-field">
+			{{ form.note_body.label }}
+			{{ form.note_body(spellcheck="true", maxlength="4000") }}
+			{% for error in form.note_body.errors %}
+			<p class="input-error">{{ error }}</p>
+			{% endfor -%}
+		</div>
 
-		{{ form.submit(class="action submit") }}
+		<div class="form-field">
+			{{ form.submit(class="action submit") }}
+		</div>
 	</form>
 {% endblock %}
