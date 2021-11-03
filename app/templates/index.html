@@ -6,7 +6,7 @@
 			<div class="note-header">
 				<div class="note-meta">
 					<h2>{{ note["title"] }}</h2>
-					<p class="date-modified">{{ note["date-modified"] }}</p>
+					<p class="date-modified">{{ note["date-modified"].strftime('%m/%d/%Y %I:%M:%S %p') }}</p>
 				</div>
 				<a class="action edit-note" href="">Edit</a>
 				<a class="action delete-note" href="">Delete</a>
