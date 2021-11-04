@@ -34,9 +34,9 @@ def index():
     return render_template("index.html", title=title, notes=notes)
 
 
-@app.route("/edit", methods=["GET", "POST"])
-def edit_note():
-    """Create a new note or edit an existing one"""
+@app.route("/new", methods=["GET", "POST"])
+def new_note():
+    """Create a new note"""
     title = "New Note"
     form = EditNoteForm()
     # validate_on_submit() only tries to validate on POST, so we don't
