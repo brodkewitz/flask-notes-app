@@ -15,3 +15,7 @@ class EditNoteForm(FlaskForm):
                               validators=[DataRequired(),
                                           Length(max=4000)])
     submit = SubmitField('Submit')
+
+
+class ConfirmDeleteNoteForm(FlaskForm):
+    submit = SubmitField('Delete')

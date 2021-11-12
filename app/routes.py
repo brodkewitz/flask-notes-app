@@ -1,7 +1,7 @@
 import datetime
 from flask import render_template, flash, redirect, url_for
 from app import app
-from app.forms import EditNoteForm
+from app.forms import EditNoteForm, ConfirmDeleteNoteForm
 
 
 notes = [
@@ -87,3 +87,23 @@ def edit_note(note_id):
     form.note_body.data = notes[note_id]["body"]
 
     return render_template("edit.html", title=title, form=form)
+
+
+@app.route("/delete/<int:note_id>", methods=["GET", "POST"])
+def delete_note(note_id):
+    """Confirm deleting a note"""
+    title = "Delete Note"
+    if not 0 <= note_id < len(notes):
+        flash("No note found with this ID")
+        return redirect(url_for('index'))
+
+    form = ConfirmDeleteNoteForm()
+    if form.validate_on_submit():
+        del notes[note_id]
+        flash(f"Note deleted")
+        return redirect(url_for('index'))
+
+    return render_template("confirm-delete.html",
+                           title=title,
+                           note_title=notes[note_id]["title"],
+                           form=form)

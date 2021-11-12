@@ -193,3 +193,15 @@ textarea {
 }
 
 input[type="submit"] {}
+
+
+/* ********************* */
+/* Delete Note Page */
+
+.form-delete-note .form-field {
+	display: flex;
+}
+
+.form-delete-note .form-field > * {
+	flex: 0 1 auto;
+}
