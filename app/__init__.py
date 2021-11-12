@@ -19,4 +19,4 @@ db = SQLAlchemy(app)
 # the Flask app variable above. Putting imports at the bottom here
 # allows all the modules to have their imports at the top. Yup, it's
 # confusing.
-from app import routes
+from app import routes, models
