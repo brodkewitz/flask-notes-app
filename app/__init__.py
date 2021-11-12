@@ -1,5 +1,6 @@
 from flask import Flask
 from config import Config
+from flask_sqlalchemy import SQLAlchemy
 
 
 # There are two kinds of "app" here, which is confusing.
@@ -9,6 +10,7 @@ from config import Config
 # the package.
 app = Flask(__name__)
 app.config.from_object(Config)
+db = SQLAlchemy(app)
 
 # "from app" here refers to the whole package, as named by this file's
 # parent directory. Putting our "import" statements down here is a
