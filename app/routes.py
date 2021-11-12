@@ -1,6 +1,6 @@
 import datetime
 from flask import render_template, flash, redirect, url_for
-from app import app
+from app import app, db
 from app.forms import EditNoteForm, ConfirmDeleteNoteForm
 from app.models import Note
 
@@ -20,13 +20,17 @@ def new_note():
     # validate_on_submit() only tries to validate on POST, so we don't
     # have to check which method was used for the request.
     if form.validate_on_submit():
-        new_note = {
-            "date-modified": datetime.datetime.now(),
-            "title": form.note_title.data,
-            "body": form.note_body.data
-        }
-        notes.append(new_note)
-        flash(f"New note created: {new_note['title']}")
+        # Note we *should* be using datetime.utcnow(). It's always best
+        # to store dates and times in UTC in the database, and convert
+        # to the local timezone in the app or template.
+        new_note = Note(
+            date_modified = datetime.datetime.now(),
+            title = form.note_title.data,
+            body = form.note_body.data
+        )
+        db.session.add(new_note)
+        db.session.commit()
+        flash(f"New note created: {new_note.title}")
         return redirect(url_for('index'))
 
     return render_template("edit.html", title=title, form=form)
