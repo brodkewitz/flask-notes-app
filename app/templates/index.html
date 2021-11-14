@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block header_action %}<a class="action new-note" href="{{ url_for('new_note') }}">New Note</a>{% endblock %}
 {% block content %}
+	{% if not notes %}
+	<p class="flash-message">No notes in database. Create a new one!</p>
+	{% endif %}
 	{%- for note in notes %}
 		<article class="note">
 			<div class="note-header">
