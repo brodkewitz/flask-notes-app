@@ -83,17 +83,21 @@ def edit_note(note_id):
 def delete_note(note_id):
     """Confirm deleting a note"""
     title = "Delete Note"
-    if not 0 <= note_id < len(notes):
+    # Check if the note exists, redirect to index if not
+    if db.session.query(Note.id).filter_by(id=note_id).one_or_none() is None:
         flash("No note found with this ID")
         return redirect(url_for('index'))
+    # Now that we know it exists, retrieve the note to delete
+    note_to_delete = Note.query.filter_by(id=note_id).one_or_none()
 
     form = ConfirmDeleteNoteForm()
     if form.validate_on_submit():
-        del notes[note_id]
+        db.session.delete(note_to_delete)
+        db.session.commit()
         flash(f"Note deleted")
         return redirect(url_for('index'))
 
     return render_template("confirm-delete.html",
                            title=title,
-                           note_title=notes[note_id]["title"],
+                           note_title=note_to_delete.title,
                            form=form)
