@@ -40,19 +40,27 @@ def new_note():
 def edit_note(note_id):
     """Edit an existing note"""
     title = "Edit Note"
-    if not 0 <= note_id < len(notes):
+    # Check if the note exists, not just whether the id is between 1 and
+    # the highest note id. When notes are deleted, it's possible for the
+    # id's to be non-contiguous (e.g. 1 2 3 5 6 8...)
+    if db.session.query(Note.id).filter_by(id=note_id).one_or_none() is None:
         flash("No note found with this ID")
         return redirect(url_for('index'))
+    # Now that we know it exists, retrieve the note to edit
+    note_to_edit = Note.query.filter_by(id=note_id).one_or_none()
 
     form = EditNoteForm()
     if form.validate_on_submit():
-        new_note = {
-            "date-modified": datetime.datetime.now(),
-            "title": form.note_title.data,
-            "body": form.note_body.data
-        }
-        notes[note_id] = new_note
-        flash(f"Note updated: {new_note['title']}")
+        # The Note object returned from the query is mutable, and
+        # automatically part of the current db.session. This means we
+        # can edit the variable in place and just commit the changes. No
+        # need to create a new variable, or run the equivalent of an
+        # "UPDATE" SQL query.
+        note_to_edit.date_modified = datetime.datetime.now()
+        note_to_edit.title = form.note_title.data
+        note_to_edit.body = form.note_body.data
+        db.session.commit()
+        flash(f"Note updated: {note_to_edit.title}")
         return redirect(url_for('index'))
 
     # The form wasn't submitted at this point, so we're going to render
@@ -65,8 +73,8 @@ def edit_note(note_id):
     # {{ form.note_title(autofocus="", maxlength="80", value=note_data["title"]) }}
     # ...we're just adding the note data to the form object before it
     # gets sent over. Luckily this works for both kinds of form inputs.
-    form.note_title.data = notes[note_id]["title"]
-    form.note_body.data = notes[note_id]["body"]
+    form.note_title.data = note_to_edit.title
+    form.note_body.data = note_to_edit.body
 
     return render_template("edit.html", title=title, form=form)
 
